@@ -21,12 +21,27 @@ body {
 }
 
 .winner{
-    background-color: #000;
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+z-index: 10;
+    width: 100%;
+    height: 100%;
+    background:rgb(0, 0, 0);
 
 }
 
-#🦄{
-    z-index: 55;
+#unicorn{
+    background-color: rgba(0, 0, 0, 0);
+    display: block;
+    position: relative;
+    border: 0;
+    z-index: 1;
+    font-size: 4rem;
+    cursor:crosshair; ;
 }
 
 /* Typeography General*/

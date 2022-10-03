@@ -6,6 +6,8 @@ const sections = document.querySelectorAll("section");
 
 const navSectionLi = document.querySelectorAll(".menu__link");
 
+const winnerdiv = document.querySelector("div");
+
 // End Global Variables
 
 // Begin Main Functions
@@ -39,7 +41,8 @@ const navLinikFunc = (e) => {
 };
 
 const clickingUnicornFunc = (e) => {
-  document.body.classList.add("winner");
+  console.log("inside click event ");
+  winnerdiv.classList.toggle("winner");
 };
 //End Main Functions
 
@@ -65,37 +68,51 @@ for (let i = 1; i < sections.length + 1; i++) {
 
 
 
-let randomSection = Math.floor(Math.random() * 4);
 
-console.log("random section" + randomSection);
+//Game logic
 
+
+// emojiFunc deside where the emoji show and disapear
 const emojiFunc = () => {
-  let unicornExistance = sections[randomSection].innerHTML.includes("🦄");
-
+  //randomization
+  let randomSection = Math.floor(Math.random() * 4);
+ 
   let randomShow = Math.floor(Math.random() * 2);
-  console.log("rando  show" + randomShow);
 
+  //checking element exist 
+  let unicornExistance = sections[randomSection].innerHTML.includes("🦄");
+  
+
+  //random number 1 will create the element and event listner if it doesn't exist 
   if (randomShow === 1 && unicornExistance == false) {
-    const emoji = document.createElement("h2");
+
+    const emoji = document.createElement("button");
+
     emoji.id = "unicorn";
-    const unicornId = document.getElementById("unicorn");
-    console.log(unicornId);
 
     emoji.innerText = "🦄";
-    
 
-    sections[randomSection].append(emoji);
-    
+    sections[randomSection].appendChild(emoji);
 
-    if (unicornId) {
-      unicornId.addEventListener("", clickingUnicornFunc);
-    }
-  } else if (unicornExistance) {
-    console.log("hi");
-    console.log(unicornId);
+    const unicornId = document.querySelector("button");
+
+    unicornId.addEventListener("click", clickingUnicornFunc);
+    
+    
+  }
+  //will remove  the element and event listner if it does exist 
+   else if (unicornExistance) {
+
+    const unicornId = document.querySelector("button");
+
     unicornId.remove();
+
+    unicornId.removeEventListener("click", clickingUnicornFunc);
   }
 };
 
-setTimeout(setInterval(emojiFunc, Math.floor(Math.random() * 10000)),0)
+//for gitting the element value
+const unicornId = document.querySelector("button");
 
+//initilize the game with a random time intreval 
+setInterval(emojiFunc, Math.floor(Math.random() * 10000));
