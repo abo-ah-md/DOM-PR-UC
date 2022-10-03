@@ -40,8 +40,12 @@ const navLinikFunc = (e) => {
   });
 };
 
+//clicking emoji fuction
 const clickingUnicornFunc = (e) => {
-  console.log("inside click event ");
+  const congratElement = document.createElement("h1");
+  congratElement.innerText = "Congrats you have have found our 🦄";
+  congratElement.style.cssText = "textAlign: center";
+  winnerdiv.append(congratElement);
   winnerdiv.classList.toggle("winner");
 };
 //End Main Functions
@@ -66,26 +70,20 @@ for (let i = 1; i < sections.length + 1; i++) {
   navList.append(newLi);
 }
 
-
-
-
 //Game logic
-
 
 // emojiFunc deside where the emoji show and disapear
 const emojiFunc = () => {
   //randomization
   let randomSection = Math.floor(Math.random() * 4);
- 
+
   let randomShow = Math.floor(Math.random() * 2);
 
-  //checking element exist 
+  //checking element exist
   let unicornExistance = sections[randomSection].innerHTML.includes("🦄");
-  
 
-  //random number 1 will create the element and event listner if it doesn't exist 
+  //random number 1 will create the element and event listner if it doesn't exist
   if (randomShow === 1 && unicornExistance == false) {
-
     const emoji = document.createElement("button");
 
     emoji.id = "unicorn";
@@ -97,12 +95,9 @@ const emojiFunc = () => {
     const unicornId = document.querySelector("button");
 
     unicornId.addEventListener("click", clickingUnicornFunc);
-    
-    
   }
-  //will remove  the element and event listner if it does exist 
-   else if (unicornExistance) {
-
+  //will remove  the element and event listner if it does exist
+  else if (unicornExistance) {
     const unicornId = document.querySelector("button");
 
     unicornId.remove();
@@ -114,5 +109,5 @@ const emojiFunc = () => {
 //for gitting the element value
 const unicornId = document.querySelector("button");
 
-//initilize the game with a random time intreval 
+//initilize the game with a random time intreval
 setInterval(emojiFunc, Math.floor(Math.random() * 10000));
