@@ -1,105 +1,101 @@
-/**
- *
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- *
- * Dependencies: None
- *
- * JS Version: ES2015/ES6
- *
- * JS Standard: ESlint
- *
- */
-
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
- */
-
-/**
- * Define Global Variables
- *
- */
-
-const t1 = performance.now();
+//Define Global Variables
 
 const navList = document.querySelector("#navbar__list");
+
 const sections = document.querySelectorAll("section");
-let windowHeight = window.innerHeight;
-let sectionTop = section.getBoundingClientRect().top;
-
-
 
 const navSectionLi = document.querySelectorAll(".menu__link");
 
-const removeAndAddActive = (e) => {
-  if (e.target) {
-    console.log(e);
-    /*
+// End Global Variables
 
-e.target.attributes.href.value
-    sections.forEach(section => {
-        if (condition) {
-            
-        }
-       });
-  */
-  }
+// Begin Main Functions
+
+// Add class 'active' to section when near top of viewport
+const scrollFunc = (e) => {
+  sections.forEach((section) => {
+    let sectionTop = section.getBoundingClientRect().top;
+    let sectionBottom = section.getBoundingClientRect().bottom;
+    let windowHeight = window.innerHeight;
+
+    if (sectionTop <= 0 || sectionBottom <= windowHeight) {
+      // Set sections as active
+
+      section.classList.add("your-active-class");
+    } else {
+      section.classList.remove("your-active-class");
+    }
+  });
+};
+// Scroll to anchor id
+const navLinikFunc = (e) => {
+  e.preventDefault();
+
+  sections.forEach((section) => {
+    if (section.id == e.target.innerHTML) {
+      // Scroll to anchor ID using scrollIntoView event
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  });
 };
 
+const clickingUnicornFunc = (e) => {
+  document.body.classList.add("winner");
+};
+//End Main Functions
 
-sections;
+//Begin Events
+
+// make class active on view port
 window.addEventListener("scroll", scrollFunc);
 
-document.addEventListener("click", removeAndAddActive);
+// Scroll to section on link click
 
-const t2 = performance.now();
-
-console.log(t2 - t1);
-/**
- * End Global Variables
- * Start Helper Functions
- *
- */
-const scrollFunc= (e)=>{
-    
-}
-
-/**
- * End Helper Functions
- * Begin Main Functions
- *
- */
+navList.addEventListener("click", navLinikFunc);
 
 // build the nav
 
 for (let i = 1; i < sections.length + 1; i++) {
   const newLi = document.createElement("li");
   newLi.innerHTML = `<a href="#section${i}">section${i}</a>`;
+
+  // Build menu
   newLi.classList.add("menu__link");
   navList.append(newLi);
 }
 
-// Add class 'active' to section when near top of viewport
 
 
+let randomSection = Math.floor(Math.random() * 4);
 
+console.log("random section" + randomSection);
 
+const emojiFunc = () => {
+  let unicornExistance = sections[randomSection].innerHTML.includes("🦄");
 
+  let randomShow = Math.floor(Math.random() * 2);
+  console.log("rando  show" + randomShow);
 
+  if (randomShow === 1 && unicornExistance == false) {
+    const emoji = document.createElement("h2");
+    emoji.id = "unicorn";
+    const unicornId = document.getElementById("unicorn");
+    console.log(unicornId);
 
-// Scroll to anchor ID using scrollTO event
+    emoji.innerText = "🦄";
+    
 
-/**
- * End Main Functions
- * Begin Events
- *
- */
+    sections[randomSection].append(emoji);
+    
 
-// Build menu
+    if (unicornId) {
+      unicornId.addEventListener("", clickingUnicornFunc);
+    }
+  } else if (unicornExistance) {
+    console.log("hi");
+    console.log(unicornId);
+    unicornId.remove();
+  }
+};
 
-// Scroll to section on link click
+setTimeout(setInterval(emojiFunc, Math.floor(Math.random() * 10000)),0)
 
-// Set sections as active
