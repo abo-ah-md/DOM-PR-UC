@@ -40,7 +40,7 @@ body {
   position: relative;
   border: 0;
   z-index: 1;
-  font-size: 4rem;
+  font-size: 1rem;
   cursor: crosshair;
 }
 
@@ -88,9 +88,11 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+
 .navbar__menu ul {
   display: flex;
   justify-content: flex-end;
+  flex-flow: wrap;
   padding-left: 0;
   margin: 0;
   text-align: right;
@@ -102,22 +104,51 @@ section {
 }
 
 .navbar__menu .menu__link {
+  cursor: pointer;
   display: block;
   padding: 1em;
   font-weight: bold;
   text-decoration: none;
-  color: #000;
+  color: #333;
+  z-index: 7;
 }
 
 .navbar__menu .menu__link:hover {
+  color: transparent;
+  background: #333;
+  color: #fff;
+
+  transition: ease-in-out 0.3s all;
+  -webkit-transition: ease-in-out 0.3s all;
+  -moz-transition: ease-in-out 0.3s all;
+  -ms-transition: ease-in-out 0.3s all;
+  -o-transition: ease-in-out 0.3s all;
+}
+
+.menu__link:active {
+  filter: blur(2px);
   background: #333;
   color: #fff;
   transition: ease 0.3s all;
+  animation: blink ease-in-out 0.5s;
+  -webkit-animation: blink ease-in-out 0.5s;
+  -webkit-filter: blur(2px);
+}
+
+@keyframes blink {
+  0% {
+    color: #cc1;
+  }
+
+  100% {
+    color: #cc1;
+  }
 }
 
 /* Header Styles */
 .page__header {
-  background: #fff;
+  background: rgb(252, 227, 3);
+
   position: fixed;
   top: 0;
   width: 100%;
@@ -133,6 +164,8 @@ section {
   -moz-transition: all 3s ease-in-out;
   -ms-transition: all 3s ease-in-out;
   -o-transition: all 3s ease-in-out;
+  animation: show 1s ease-in-out forwards;
+  -webkit-animation: show 1s ease-in-out forwards;
 }
 
 /* Footer Styles */
@@ -241,13 +274,32 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
-section.your-active-class {
+section p.your-active-class {
   background: rgb(0, 0, 0);
+  display: block;
   background: linear-gradient(
     0deg,
     rgba(0, 0, 0, 0.1) 0%,
     rgba(0, 0, 0, 0) 100%
   );
+}
+
+section p {
+  opacity: 0;
+  transition: ease 1.5s all;
+  -webkit-transition: ease 1.5s all;
+  -moz-transition: ease 1.5s all;
+  -ms-transition: ease 1.5s all;
+  -o-transition: ease 1.5s all;
+}
+
+.your-active-class p {
+  opacity: 1;
+  transition: ease 1.5s all;
+  -webkit-transition: ease 1.5s all;
+  -moz-transition: ease 1.5s all;
+  -ms-transition: ease 1.5s all;
+  -o-transition: ease 1.5s all;
 }
 
 section.your-active-class .landing__container::before {

@@ -8,6 +8,10 @@ const navSectionLi = document.querySelectorAll(".menu__link");
 
 const winnerdiv = document.querySelector("div");
 
+const emoji = document.createElement("button");
+
+const unicornId = document.querySelector("button");
+
 // End Global Variables
 
 // Begin Main Functions
@@ -16,10 +20,10 @@ const winnerdiv = document.querySelector("div");
 const scrollFunc = (e) => {
   sections.forEach((section) => {
     let sectionTop = section.getBoundingClientRect().top;
-    let sectionBottom = section.getBoundingClientRect().bottom;
+
     let windowHeight = window.innerHeight;
 
-    if (sectionTop <= 0 || sectionBottom <= windowHeight) {
+    if (sectionTop <= windowHeight && sectionTop >= -50) {
       // Set sections as active
 
       section.classList.add("your-active-class");
@@ -35,7 +39,10 @@ const navLinikFunc = (e) => {
   sections.forEach((section) => {
     if (section.id == e.target.innerHTML) {
       // Scroll to anchor ID using scrollIntoView event
+      section.classList.add("your-active-class");
       section.scrollIntoView({ behavior: "smooth" });
+    } else {
+      section.classList.remove("your-active-class");
     }
   });
 };
@@ -46,7 +53,7 @@ const clickingUnicornFunc = (e) => {
   congratElement.innerText = "Congrats you have have found our 🦄";
   congratElement.style.cssText = "textAlign: center";
   winnerdiv.append(congratElement);
-  winnerdiv.classList.toggle("winner");
+  winnerdiv.classList.add("winner");
 };
 //End Main Functions
 
@@ -57,23 +64,23 @@ window.addEventListener("scroll", scrollFunc);
 
 // Scroll to section on link click
 
-navList.addEventListener("click", navLinikFunc);
+setTimeout(navList.addEventListener("click", navLinikFunc), 1000);
 
 // build the nav
 
 for (let i = 1; i < sections.length + 1; i++) {
   const newLi = document.createElement("li");
-  newLi.innerHTML = `<a href="#section${i}">section${i}</a>`;
 
+  newLi.innerHTML = `<a class="menu__link" >section${i}</a>`;
   // Build menu
-  newLi.classList.add("menu__link");
   navList.append(newLi);
 }
 
 //Game logic
+//initilize the game with a random time intreval
+setInterval((emojiFunc) => {
+  // emojiFunc deside where the emoji show and disapear
 
-// emojiFunc deside where the emoji show and disapear
-const emojiFunc = () => {
   //randomization
   let randomSection = Math.floor(Math.random() * 4);
 
@@ -84,8 +91,6 @@ const emojiFunc = () => {
 
   //random number 1 will create the element and event listner if it doesn't exist
   if (randomShow === 1 && unicornExistance == false) {
-    const emoji = document.createElement("button");
-
     emoji.id = "unicorn";
 
     emoji.innerText = "🦄";
@@ -104,10 +109,4 @@ const emojiFunc = () => {
 
     unicornId.removeEventListener("click", clickingUnicornFunc);
   }
-};
-
-//for gitting the element value
-const unicornId = document.querySelector("button");
-
-//initilize the game with a random time intreval
-setInterval(emojiFunc, Math.floor(Math.random() * 10000));
+}, Math.floor(Math.random() * 10000));
