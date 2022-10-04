@@ -12,9 +12,9 @@
 body {
   background: rgb(136, 203, 171);
   background: linear-gradient(
-    0deg,
-    rgba(149, 89, 125, 0.692) 0%,
-    rgb(156, 158, 166) 100%
+    180deg,
+    rgb(37, 37, 37) 0%,
+    rgb(191, 194, 202) 100%
   );
   margin: 0;
   font-family: "Merriweather", serif;
@@ -143,6 +143,10 @@ section {
   100% {
     color: #cc1;
   }
+}
+
+.active {
+  background: #333;
 }
 
 /* Header Styles */

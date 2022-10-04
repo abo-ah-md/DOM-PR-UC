@@ -4,7 +4,7 @@ const navList = document.querySelector("#navbar__list");
 
 const sections = document.querySelectorAll("section");
 
-const navSectionLi = document.querySelectorAll(".menu__link");
+let navSectionLi = document.querySelectorAll("menu__link");
 
 const winnerdiv = document.querySelector("div");
 
@@ -19,9 +19,9 @@ const unicornId = document.querySelector("button");
 // Add class 'active' to section when near top of viewport
 const scrollFunc = (e) => {
   sections.forEach((section) => {
-    let sectionTop = section.getBoundingClientRect().top;
+    const sectionTop = section.getBoundingClientRect().top;
 
-    let windowHeight = window.innerHeight;
+    const windowHeight = window.innerHeight;
 
     if (sectionTop <= windowHeight && sectionTop >= -50) {
       // Set sections as active
@@ -32,16 +32,25 @@ const scrollFunc = (e) => {
     }
   });
 };
+
 // Scroll to anchor id
 const navLinikFunc = (e) => {
   e.preventDefault();
+  //reassaining querry after DOM is loaded
+  navSectionLi = document.querySelectorAll(".menu__link");
 
   sections.forEach((section) => {
     if (section.id == e.target.innerHTML) {
       // Scroll to anchor ID using scrollIntoView event
+      e.target.classList.add("active");
       section.classList.add("your-active-class");
       section.scrollIntoView({ behavior: "smooth" });
     } else {
+      navSectionLi.forEach((li) => {
+        if (li.innerText !== section.id) {
+          li.classList.remove("active");
+        }
+      });
       section.classList.remove("your-active-class");
     }
   });
@@ -82,12 +91,12 @@ setInterval((emojiFunc) => {
   // emojiFunc deside where the emoji show and disapear
 
   //randomization
-  let randomSection = Math.floor(Math.random() * 4);
+  const randomSection = Math.floor(Math.random() * 4);
 
-  let randomShow = Math.floor(Math.random() * 2);
+  const randomShow = Math.floor(Math.random() * 2);
 
   //checking element exist
-  let unicornExistance = sections[randomSection].innerHTML.includes("🦄");
+  const unicornExistance = sections[randomSection].innerHTML.includes("🦄");
 
   //random number 1 will create the element and event listner if it doesn't exist
   if (randomShow === 1 && unicornExistance == false) {
